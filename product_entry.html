@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Bootstrap Table with Add and Delete Row Feature</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+      
+        <script src="app.js"></script>
+  <script>
+         //Initialize Firebase  
+         /*
+         var config = {  
+         apiKey: "AIzaSyDNRtpa86v986mO3pePPursUW1XtahmrDo",
+           authDomain: "gfem-b7b57.firebaseapp.com",
+           databaseURL: "https://gfem-b7b57.firebaseio.com",
+           projectId: "gfem-b7b57",
+           storageBucket: "gfem-b7b57.appspot.com",
+           messagingSenderId: "144283479484"
+         };  
+         firebase.initializeApp(config);
+
+         var db = firebase.firestore(); 
+         */
+
+         // current log status
+         var currentUid = null;  
+         firebase.auth().onAuthStateChanged(function(user) {  
+         if (user && user.uid != currentUid) {  
+         currentUid = user.uid;  
+         console.log("user signed in sucessfully");
+         // datas2()
+         } else { 
+         // Sign out operation. Reset the current user UID. 
+         currentUid = null;  
+         // datas2()
+         console.log("no user signed in");  
+         } 
+         }); 
+         
+      </script>
+      <script type="text/javascript">
+         $(document).ready(function(){
+          
+         });
+      </script>
+   </head>
+   <body>
+      <div class="container">
+         <h2>Valuation Servay Sheet</h2>
+         <form action="/action_page.php" class="needs-validation" novalidate>
+
+               <!--Setvay for-->
+            <br>Servay For<br>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="SHOP" name="property1">SHOP
+                     </label>
+                  </div>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="FLAT" name="property1">FLAT
+                     </label>
+                  </div>
+                  <div class="form-check-inline ">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="OFFICE" name="property1" >OFFICE
+                     </label>
+                  </div>
+                 <!--Setvay for over-->
+
+              <!--Bank Name-->
+                    <div class="form-group">
+                        Bank Name</label>
+                       <input type="text" class="form-control" id="bname" placeholder="Enter Bank Name" name="bname" required>
+                       <div class="valid-feedback">Valid.</div>
+                       <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+             <!--Bank Over-->
+
+             <!-- usa as     -->
+           Usa As<br>
+                    <div class="form-check-inline">
+                       <label class="form-check-label">
+                       <input type="radio" class="form-check-input" value="Resident" name="usaas">Resident
+                       </label>
+                    </div>
+                    <div class="form-check-inline">
+                       <label class="form-check-label">
+                       <input type="radio" class="form-check-input" value="Commercial" name="usaas">Commercial
+                       </label>
+                    </div>
+                    <div class="form-check-inline ">
+                       <label class="form-check-label">
+                       <input type="radio" class="form-check-input" value="Individual" name="usaas" >Individual
+                       </label>
+                    </div>
+                    <div class="form-check-inline ">
+                       <label class="form-check-label">
+                       <input type="radio" class="form-check-input" value="Vacant" name="usaas" >Vacant
+                       </label>
+                    </div>
+           
+                      <div class="form-check-inline ">
+                         <label class="form-check-label">
+                         <input type="radio" class="form-check-input" value="Under construction" name="usaas" >Under construction
+                         </label>
+                      </div>
+
+                 <!-- usa as over    --> 
+
+            <!--shown by-->
+                    <div class="form-group">
+                        Property shown by</label>
+                       <input type="text" class="form-control" id="shownby" placeholder="Enter name" name="shownby" required>
+                       <div class="valid-feedback">Valid.</div>
+                       <div class="invalid-feedback">Please fill out this field.</div>
+                       
+                        Bulding Name </label>
+                       <input type="text" class="form-control" id="buildingname" placeholder="Enter Building name" name="buildingname" required>
+                       <div class="valid-feedback">Valid.</div>
+                       <div class="invalid-feedback">Please fill out this field.</div>
+
+                        Total floor</label>
+                       <input type="text" class="form-control" id="totalfloor" placeholder="Total Floor" name="totalfloor" required>
+                       <div class="valid-feedback">Valid.</div>
+                       <div class="invalid-feedback">Please fill out this field.</div>
+
+                        Total Unit/floor</label>
+                       <input type="text" class="form-control" id="totalunit" placeholder="Unit/Floor" name="totalunit" required>
+                       <div class="valid-feedback">Valid.</div>
+                       <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+              <!--shown by over-->
+
+                 <!--Demarcation-->
+            <b>Demarcation</b><br>
+            <b>Building-</b>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="Yes" name="dem_build">Yes
+                     </label>
+                  </div>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="No" name="dem_build">No
+                     </label>
+                  </div>
+                  <br>                 <b> Property-</b>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="Yes" name="dem_prop">Yes
+                     </label>
+                  </div>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="No" name="dem_prop">No
+                     </label>
+                  </div>
+         
+                  <!--Demarcation over-->
+<!--Address-->
+            <div class="form-group">
+               <label for="comment">Address:</label>
+               <textarea class="form-control" rows="5" id="address"></textarea>
+            </div>
+             <!--  Address over---->
+
+
+
+                  <br><b>Const. as per approved</b>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Yes" name="approved">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="approved">No
+               </label>
+            </div>
+            <!--ca -->
+            <div class="form-group">
+                CA as per plan</label>
+               <input type="text" class="form-control" id="ca" placeholder="CA as per plan" name="ca" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+
+            <!--CA over-->
+            <!--CA/BA  -->
+            <div class="form-group">
+                CA/BA as per sanction plan</label>
+               <input type="text" class="form-control" id="caba" placeholder="CA/BA as per sanction" name="caba" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+
+            <!--CA/BA-->
+             <!--Remarks-->
+            <div class="form-group">
+               <label for="comment">Remark:</label>
+               <textarea class="form-control" rows="5" id="remark"></textarea>
+            </div>
+             <!-- Remarks over---->
+
+              <!--Occupancy-->
+            <div class="form-group">
+                Occupancy</label>
+               <input type="text" class="form-control" id="Occupancy" placeholder="Occupancy" name="Occupancy" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+
+<!-- Occupancy over-->
+
+ <!--Name Of Use-->
+            <div class="form-group">
+                Name Of User</label>
+               <input type="text" class="form-control" id="nmofuser" placeholder="Name Of User" name="nmofuser" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+
+<!-- Occupancy over-->
+<!--Text Button-->
+            <div class="form-group">
+                Foyer      
+            
+              <input type="number" class="form-control" id="foyer" placeholder="Sq. Feet" name="foyer" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                Balcony</label>
+              <input type="nmber" class="form-control" id="balcony" placeholder="Sq. feet" name="Balcony" required>
+               
+          </div>
+  <div class="form-group">
+                Hall      
+               <input type="text" class="form-control" id="hall" placeholder="Name Of User" name="hall" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                Kitchen</label>
+              <input type="text" class="form-control" id="kitchen" placeholder="Name Of User" name="kitdhen" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                Dining      
+              <input type="text" class="form-control" id="dining" placeholder="Name Of User" name="dining" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                Living</label>
+              <input type="text" class="form-control" id="living" placeholder="Name Of User" name="living" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                Store Room      
+              <input type="text" class="form-control" id="store" placeholder="Name Of User" name="store" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+               Pooja Room
+               <input type="text" class="form-control" id="pooja" placeholder="Name Of User" name="pooja" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                W/C      
+              <input type="text" class="form-control" id="wc" placeholder="Name Of User" name="wc" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <!-- table for sq feet-->
+<div class="table-responsive">
+  Bed Rooms Details
+<table class="table">
+    <thead>
+      <tr>
+        <th with="5%">no</th>
+        <th with="5%">Area</th>
+        <th>Balcony</th>
+        <th>Toilet</th>
+     
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+         <td>1</td>
+        <td><input id="bed1" type="number" ></td>
+        <td><input id="bed1t" type="number" ></td>
+        <td><input id="bed1b" type="number" ></td>
+      </tr>
+      <tr>
+         <td>2</td>
+        <td><input id="bed2" type="number" ></td>
+        <td><input id="bed2t" type="number" ></td>
+        <td><input id="bed2b" type="number" ></td>
+      </tr>
+      <tr>
+         <td>3</td>
+        <td><input id="bed3" type="number" ></td>
+        <td><input id="bed3t" type="number" ></td>
+        <td><input id="bed3b" type="number" ></td>
+      </tr>
+      <tr>
+         <td>4</td>
+        <td><input id="bed4" type="number" ></td>
+        <td><input id="bed4t" type="number" ></td>
+        <td><input id="bed4b" type="number" ></td>
+      </tr>
+      <tr>
+                 <td>5</td>
+        <td><input id="bed5" type="number" ></td>
+        <td><input id="bed5t" type="number" ></td>
+        <td><input id="bed5b" type="number" ></td>
+      </tr>
+      <tr>
+         <td>2</td>
+        <td><input id="bed6" type="number" ></td>
+        <td><input id="bed6t" type="number" ></td>
+        <td><input id="bed6b" type="number" ></td>
+      </tr>
+      <tr>
+         <td>7</td>
+        <td><input id="bed7" type="number" ></td>
+        <td><input id="bed7t" type="number" ></td>
+        <td><input id="bed7b" type="number" ></td>
+      </tr>
+      
+      
+      
+    </tbody>
+  </table>
+</div>
+
+ <div class="form-group">
+                Wash Area</label>
+              <input type="text" class="form-control" id="wash" placeholder="Name Of User" name="wash" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                Open Terrace</label>
+            <input type="text" class="form-control" id="terrace" placeholder="Name Of User" name="terrace" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                Passage</label>
+               <input type="text" class="form-control" id="passage" placeholder="Name Of User" name="passage" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+ <div class="form-group">
+                other 
+               <input type="text" class="form-control" id="other" placeholder="Name Of User" name="other" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+
+
+
+<div class="form-group">
+               <b> Extar Work</b>
+    </div>
+
+
+
+<div class="form-check-inline">
+               <label class="form-check-label">Constr. Status
+               <input type="radio" class="form-check-input" value="Yes" name="approved">Comp.
+               </label>
+            </div>
+<div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="approved">Incomp.
+               </label>
+              </div>
+ <!--List of pending works-->
+<div class="form-group">
+               <label for="comment">List of pending works</label>
+               <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+             <!--   -->
+<!--shop hight-->
+<div class="form-group">
+           
+                <lable> If Shop then</lable>
+               <input type="text" class="form-control" id="shopht" placeholder="height In feet" name="shopht" required>
+              </div>
+<div class="form-check-inline">
+               <label class="form-check-label">Mezzainne
+               <input type="radio" class="form-check-input" value="Yes" name="mezzainne">Yes
+               </label>
+            </div>
+<div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="mezzainne">No
+               </label>
+              </div>
+
+
+ <!--Shop Hight over-->
+ <br>
+ <label> Use as</label>
+           <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Resi." name="useas">Resi
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Comm." name="useas">Comm
+               </label>
+            </div>
+            <div class="form-check-inline ">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Indu" name="useas" >Indu
+               </label>
+            </div>
+<!--- --><br>
+            <label>Occupancy</label>
+           <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Self" name="occupancy">Self
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Rent" name="occupancy">Rent
+               </label>
+            </div>
+            <div class="form-check-inline ">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Vacant" name="occupancy" >Vacant
+               </label>
+            </div>
+<!-- Parking provision    --><br>
+
+              <div class="form-check-inline">
+               <label class="form-check-label">Parking Provision
+               <input type="radio" class="form-check-input" value="Yes" name="parking">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="parking">No
+               </label>
+              </div>
+          
+<!-- open close parking    --><br>
+          <div class="form-check-inline">
+               <label class="form-check-label">If yes
+               <input type="radio" class="form-check-input" value="Open" name="parkingocl">Open
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Close" name="parkingocl">Close
+               </label>
+              </div>
+         
+              <!----individual parking --><br>
+               <div class="form-check-inline">
+               <label class="form-check-label">Indi. Car Parking
+               <input type="radio" class="form-check-input" value="Yes" name="ind_park">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="ind_park">No
+               </label>
+              </div>
+             <!-- Parking floor    --> <br>
+              <div class="form-check-inline">
+               <label class="form-check-label"><b>If yes than</b>
+               <input type="radio" class="form-check-input" value="LBF" name="parkinfloor">LBH
+               </label>
+              </div>
+            
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="UBF" name="parkinfloor">UBF
+               </label>
+              </div>
+               <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="GF" name="parkinfloor">GF
+               </label>
+              </div>
+               <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="FF" name="parkinfloor">FF
+               </label>
+              </div>
+
+
+              <!-- -->
+ <!--Other amenities -->
+<br>
+            Road<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="WBM" name="road">WBM
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Block" name="road">Block
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Tarred" name="road">Tarred
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="RCC" name="road">RCC
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No Road" name="road">No Road
+               </label>
+            </div>
+
+<!--road  over-->
+<br>
+            OCP<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Developed" name="ocp">Developed
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Undeveloped" name="ocp">Undeveloped
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Absent" name="ocp">Absent
+               </label>
+            </div>
+           
+
+<!--road  over-->
+<br>
+            SECURITY<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Yes" name="security">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="security">No
+               </label>
+            </div>
+            
+<!--security over-->
+<br>
+            COMPOUND WALL<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Yes" name="comp_wall">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="comp_wall">No
+               </label>
+            </div>
+<!--compound wall over-->
+<br>
+            COMPOUND GATE<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Yes" name="comp_gate">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="comp_gate">No
+               </label>
+            </div>
+
+<!--compound gate over-->
+
+<br>
+            W/S<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Self" name="ws">Self
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="SMC" name="ws">SMC
+               </label>
+            </div>
+              <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Soc" name="ws">Soc
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="LA" name="ws">LA
+               </label>
+            </div>
+
+<!-- ws over-->
+
+
+<br>
+            CONSTRCTION<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Uniform" name="const">Uniform
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Self" name="const">Self
+               </label>
+            </div>
+
+
+<!-- constrction ovwe-->
+<br>
+            ELECRICITY<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Torrent" name="electricity">Torrent
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="DGVCL" name="electricity">DGVCL
+               </label>
+            </div>
+
+
+<!-- electricity over-->
+<br>
+            SEWERAGE<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="SP" name="sewerage">SP
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="SMC" name="sewerage">SMC
+               </label>
+            </div>
+<div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="LA" name="sewerage">LA
+               </label>
+            </div>
+<!-- over-->
+<br>
+            LIFT<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Yes" name="lift">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="lift">No
+               </label>
+            </div>
+            <div class="form-group ">
+           <div class="col-xs-2">
+                Passanger Lift
+               <input type="text" class="form-control" id="pas_lift" placeholder="no. of lift" name="pas_lift" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+           <div class="form-group">
+           <div class="col-xs-2">
+                Goods lift
+               <input type="text" class="form-control" id="good_lift" placeholder="no. of lift" name="good_lift" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+<br>
+            FIRE SAFETY<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="Yes" name="fire_safety">Yes
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="No" name="fire_safety">No
+               </label>
+            </div>
+<br>
+           ACCOMMODATION<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Foyer" value="accom" checked>Foyer
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Balcony" value="accom">Balcony
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Hall" value="accom">Hall
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check4">
+               <input type="checkbox" class="form-check-input" id="check4" name="Living room" value="accom">Living room
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="Kitchen" value="accom">Kitchen
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check6">
+               <input type="checkbox" class="form-check-input" id="check6" name="Dinning Area" value="accom">Dinning Area
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check7">
+               <input type="checkbox" class="form-check-input" id="check7" name="Store Room" value="accom">Store Room
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check8">
+               <input type="checkbox" class="form-check-input" id="check8" name="Wash Area" value="accom">Wash Area
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check9">
+               <input type="checkbox" class="form-check-input" id="check9" name="Pooja Room" value="accom">Pooja Room 
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check10">
+               <input type="checkbox" class="form-check-input" id="check10" name="W/C" value="accom">W/C
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check11">
+               <input type="checkbox" class="form-check-input" id="check11" name="Bath" value="accom">Bath
+               </label>
+            </div>
+             <div class="form-group">
+           <div class="col-xs-2">
+                Bedroom
+               <input type="text" class="form-control" id="bedroom" placeholder="no. of bedroom" name="bedroom" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+           <div class="form-group">
+           <div class="col-xs-2">
+                Bedroom With Balcony</label>
+               <input type="text" class="form-control" id="Bed_bal" placeholder="no. of bedroom balcony" name="Bed_bal" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+           </div>
+          </div>
+           <div class="form-group row">
+           <div class="col-xs-2">
+                Master Bedroom</label>
+               <input type="text" class="form-control" id="Mast_bed" placeholder="no. of Master  bedroom " name="Mast_bed" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+           </div>
+          </div>
+           <div class="form-group row">
+           <div class="col-xs-2">
+                Master Bedrooom with Balcony</label>
+               <input type="text" class="form-control" id="Mast_bal" placeholder="no. of Master bedroom with balcony" name="Mast_bal" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+           </div>
+          </div>
+           <div class="form-group row">
+           <div class="col-xs-2">
+                Com.toilet</label>
+               <input type="text" class="form-control" id="com_toilet" placeholder="no. of common toilet" name="com_toilet" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+           </div>
+          </div>
+
+          <br>
+           FLOORING<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Vitrified" value="flooring" checked>Vitrified
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Ceramic" value="flooring">Ceramic
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Marble" value="flooring">Marble
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check4">
+               <input type="checkbox" class="form-check-input" id="check" name="Mosaic" value="flooring">Mosaic
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="Kota" value="flooring">Kota
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check6">
+               <input type="checkbox" class="form-check-input" id="check6" name="Italian Marble" value="flooring">Italian Marble
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check7">
+               <input type="checkbox" class="form-check-input" id="check7" name="Heavy duty industrial" value="flooring">Heavy duty industrial
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check8">
+               <input type="checkbox" class="form-check-input" id="check8" name="Carpet" value="flooring">Carpet
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check9">
+               <input type="checkbox" class="form-check-input" id="check9" name="Plan IPS" value="flooring">Plan ISP
+               </label>
+            </div>
+<br>
+           Wiring<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Conceal" value="wiring" checked>Conceal
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Open" value="Wiring">Open
+               </label>
+            </div>
+            <br>
+           SWITCHES<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Ordinary" value="switches" checked>Ordinary
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Medium" value="wiring">Medium
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Modular" value="wiring">Modular
+               </label>
+            </div>
+
+ <br>
+           KITCHEN<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Green Marble" value="kitchen" checked>Green Marble
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Black Granite" value="kitchen">Black Granite
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Nano Marble" value="kitchen">Nano Marble
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check4">
+               <input type="checkbox" class="form-check-input" id="check4" name="Marble" value="kitchen">Marble
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="Kota" value="kitchen">Kota
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check6">
+               <input type="checkbox" class="form-check-input" id="check6" name="Ruby Granite" value="kitchen">Ruby Granite
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check7">
+               <input type="checkbox" class="form-check-input" id="check7" name="Kashmiry Granite/Nil" value="kitchen">Kashmiri Granite/Nil               </label>
+            </div>
+
+<br>
+           Dedo in Bath/Toilet<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Glaze tiles" value="dedo" checked>Glaze tiles
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Ceramic in floor" value="dedo">Ceramic in floor
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Half dedoing" value="dedo">Half dedoing
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check4">
+               <input type="checkbox" class="form-check-input" id="check4" name="Full dedoing" value="dedo">Full dedoing
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="Nil" value="dedo">Nil
+               </label>
+            </div>
+<br>
+           MAIN DOOR<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Fully panel Woodean" value="main_door" checked>Fully panel Woodean
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Glass" value="main_door">Glass
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Iron type" value="main_door">Iron type
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check4">
+               <input type="checkbox" class="form-check-input" id="check4" name="Solid flush type" value="main_door">Solid flush type
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="Solid flush with arch.treat." value="main_door">Solid flush with arch.treat.
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="M.s. rolling modular" value="main_door">M.s. rolling modular
+               </label>
+            </div>
+
+
+
+<br>
+           Rest door<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Solid flush with laminate sheet" value="rest_door" checked>Solid flush with laminate sheet
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Solid flush without laminate sheet" value="rest_door">Solid flush without laminate sheet
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Fully panel Wooden" value="rest_door">Fully panel Wooden
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check4">
+               <input type="checkbox" class="form-check-input" id="check4" name="Fully panel glass" value="rest_door">Solid flush glass
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="Fully panel iron type" value="rest_door">Fully panel iron type
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check5">
+               <input type="checkbox" class="form-check-input" id="check5" name="Solid flush with arch.treat." value="rest_door">Solid flush with arch.treat.
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check6">
+               <input type="checkbox" class="form-check-input" id="check6" name="Nil." value="rest_door">Nil
+               </label>
+            </div>
+<!-- check fully or partly-->
+<br>
+           Windows<br>
+
+            
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="Fully glass panel wooden Type" value="windows" checked>Fully glass panel wooden Type
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="Partly glass panel wooden Type" value="rest_door">Partly glass panel wooden Type
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check3">
+               <input type="checkbox" class="form-check-input" id="check3" name="Fully panel Wooden" value="rest_door">Fully panel Wooden
+               </label>
+            </div>
+             <div class="form-check-inline">
+               <label class="form-check-label" for="check4">
+               <input type="checkbox" class="form-check-input" id="check4" name="Fully panel glass" value="rest_door">Solid flush glass
+               </label>
+            </div>
+
+
+
+
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Years of const.
+               <input type="text" class="form-control" id="years_con" placeholder="enter years of con" name="years_con" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Market</label>
+               <input type="text" class="form-control" id="market" placeholder="market" name="market" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Loan Req</label>
+               <input type="text" class="form-control" id="loan_req" placeholder="Loan req" name="loan_req" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Rent</label>
+               <input type="text" class="form-control" id="rent" placeholder="Enter rent" name="rent" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                East</label>
+               <input type="text" class="form-control" id="east" placeholder="east" name="east" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                West</label>
+               <input type="text" class="form-control" id="west" placeholder="west" name="west" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+         
+            <div class="form-group row">
+           <div class="col-xs-2">
+               North </label>
+               <input type="text" class="form-control" id="north" placeholder="north" name="north" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                South</label>
+               <input type="text" class="form-control" id="south" placeholder="south" name="south" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Railway</label>
+               <input type="text" class="form-control" id="railway" placeholder="Enter in KM(      )" name="railway" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Bus stand</label>
+               <input type="text" class="form-control" id="bus_stand" placeholder="Enter in KM(      )" name="bus_stand" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Market</label>
+               <input type="text" class="form-control" id="market" placeholder="Enter in KM(     )" name="market" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Main road</label>
+               <input type="text" class="form-control" id="main_road" placeholder="main road" name="main_road" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           <!--Text Button-->
+            <div class="form-group row">
+           <div class="col-xs-2">
+                Simple Text</label>
+               <input type="text" class="form-control" id="uname" placeholder="Enter ff" name="uname" required>
+               <div class="valid-feedback">Valid.</div>
+               <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+          </div>
+            <!--Check Button-->
+            Select one or more<br>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check1">
+               <input type="checkbox" class="form-check-input" id="check1" name="vehicle1" value="something1" checked>Option 1
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label" for="check2">
+               <input type="checkbox" class="form-check-input" id="check2" name="vehicle2" value="something2">Option 2
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="checkbox" class="form-check-input" >Option 3
+               </label>
+            </div>
+            <!--Radio Button-->
+            <br>
+            Select any one<br>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="something 1" name="optradio">Option 1
+               </label>
+            </div>
+            <div class="form-check-inline">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="something 2" name="optradio">Option 2
+               </label>
+            </div>
+            <div class="form-check-inline ">
+               <label class="form-check-label">
+               <input type="radio" class="form-check-input" value="something 3" name="optradio" >Option 3
+               </label>
+            </div>
+             <!--Multi Coment-->
+            <div class="form-group">
+               <label for="comment">Comment:</label>
+               <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+             <!---->
+            <div class="form-group form-check">
+               <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">Check this checkbox to continue.</div>
+               </label>
+            </div>
+            <button type="button" onclick="adddata2()" class="btn btn-info" >add </button>
+            <!--button type="submit" class="btn btn-primary">Submit</button-->
+         </form>
+      </div>
+      <script>
+         function adddata2(){
+          var servay_for = $("input[name='property1']:checked").val();
+var bank_name=$("#bname").val();
+var usa_as=$("input[name='usaas']:checked").val();
+var shown_by=$("#shownby").val();
+var build_name=$("#buildingname").val();
+var total_floor=$("#totalfloor").val();
+var total_unit=$("#totalunit").val();
+var demarcation_build=$("input[name='dem_build']:checked").val();
+var demarcation_prop=$("input[name='dem_prop']:checked").val();
+var address=$("#address").val();
+var as_approve=$("input[name='approved']:checked").val();
+alert(servay_for+"-"+usa_as+"-"+bank_name+"-"+"-");
+          
+         /*
+             var  total_check="";
+              
+              if($("#check1").is(':checked')){
+                var checkValue=$("#check1").val();
+               total_check=total_check+" "+checkValue;
+              }
+              if($("#check2").is(':checked')){
+                var checkValue=$("#check2").val();
+               total_check=total_check+" "+checkValue;
+              }
+              if($("#check3").is(':checked')){
+                var checkValue=$("#check3").val();
+               total_check=total_check+" "+checkValue;
+              }
+         alert("Your - " + total_check);
+         
+          var radioValue = $("input[name='property1']:checked").val();
+            if(radioValue){
+                alert("Your are a - " + radioValue);
+            }
+         
+         */
+         var usaas=$("input[name='usaas']:checked").val();
+          
+         var db = firebase.firestore();
+                  
+                  
+                     var citiesRef = db.collection("mokani");
+                      return citiesRef.add({            // for adding new data (which is added with new raw)        
+                           bank_name :$("#bname").val(),
+  usa_as :usaas,
+  edite:"no",
+  shown_by :$("#shownby").val(),
+  build_name :$("#buildingname").val(),
+  total_floor :$("#totalfloor").val(),
+  total_unit :$("#totalunit").val(),
+ // demarcation_build :$("input[name='dem_build']:checked").val(),
+ // demarcation_prop :$("input[name='dem_prop']:checked").val(),
+  address :$("#address").val(),
+  //as_approve :$("input[name='approved']:checked").val(),
+  ca_as_plan :$("#ca").val(),
+  caba_as :$("#caba").val(),
+  remark :$("#remark").val(),
+//xoccpancy:$("#occpancy").val(),
+name_user:$("#nmofuser").val()
+
+                          
+                                          
+                            }).then(function(docRef) {
+                         console.log("Document written with ID: ", docRef.id);
+                     })
+                     .catch(function(error) {
+                         console.error("Error adding document: ", error)
+                });
+                     
+         }
+      </script>
+      <script>
+         // Disable form submissions if there are invalid fields
+         (function() {
+           'use strict';
+           window.addEventListener('load', function() {
+             // Get the forms we want to add validation styles to
+             var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+             var validation = Array.prototype.filter.call(forms, function(form) {
+               form.addEventListener('submit', function(event) {
+                 if (form.checkValidity() === false) {
+                   event.preventDefault();
+                   event.stopPropagation();
+                 }
+                 form.classList.add('was-validated');
+               }, false);
+             });
+           }, false);
+         })();
+      </script>
+   </body>
+</html>

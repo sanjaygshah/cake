@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Bootstrap Table with Add and Delete Row Feature</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-storage.js"></script>
+      <script>  
+         // Initialize Firebase  
+         var config = {  
+        apiKey: "AIzaSyCk2uqfJTHM3emKfJeZu-g8_xqvxJVOA8U",
+    authDomain: "friendlychat-1d5ae.firebaseapp.com",
+    databaseURL: "https://friendlychat-1d5ae.firebaseio.com",
+    projectId: "friendlychat-1d5ae",
+    storageBucket: "friendlychat-1d5ae.appspot.com",
+    messagingSenderId: "729463011972",
+    appId: "1:729463011972:web:c2749e4fe687e9cf"
+         };  
+         firebase.initializeApp(config);
+         var db = firebase.firestore(); 
+        
+         // current log status
+         var currentUid = null;  
+         firebase.auth().onAuthStateChanged(function(user) {  
+         if (user && user.uid != currentUid) {  
+         currentUid = user.uid;  
+         console.log("user signed in sucessfully");
+         alert("Loged In");
+         // datas2()
+         } else { 
+         // Sign out operation. Reset the current user UID. 
+         currentUid = null;  
+         // datas2()
+         console.log("no user signed in"); 
+         alert("Login Fail") ;
+         } 
+         });
+         downloadURL="Empty" 
+         
+      </script>
+      <script type="text/javascript">
+         $(document).ready(function(){
+          
+         });
+      </script>
+   </head>
+   <body>
+      <div class="container">
+         <h2>મારુ ભરૂચ </h2><h4> નવી પ્રોડક્ટ ની એન્ટ્રી કરો..</h4>
+         <form action="/action_page.php" class="needs-validation" novalidate>
+            <!--  imge selection-->
+
+
+               <!--Setvay for-->
+            <br>For<br>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="Cake" name="property1">Cake
+                     </label>
+                  </div>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="Accessory" name="property1">Accessory
+                     </label>
+                  </div>
+                  <div class="form-check-inline ">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="Combo" name="property1" >Combo
+                     </label>
+                  </div>
+                  <div class="form-check-inline ">
+                     <label class="form-check-label">
+                     <input type="radio" class="form-check-input" value="Pack" name="property1" >Pack
+                     </label>
+                  </div>
+                 
+                 <!--Setvay for over-->
+<div >
+  <label for="p_name">Product Name</label>
+  <input type="text" class="form-control" id="p_name">
+</div>   
+<div>
+  <label for="p_price">Price</label>
+  <input type="number" class="form-control" id="p_price">
+</div> 
+<div>
+  <label for="p_price">waight</label>
+  <input type="text" class="form-control" id="p_wt">
+</div>   
+
+<div class="form-group">
+               <label for="comment">Details:</label>
+               <textarea class="form-control" rows="5" id="remark"></textarea>
+            </div>
+            <div>
+<h6>Select picture  or take from camera</h6>
+    <input type="file" id="fn1" name="fn1"   accept="image/*">
+   </div>
+
+<br>
+            <button type="button" onclick="adddata2()" class="btn btn-info" >add </button>
+            <!--button type="submit" class="btn btn-primary">Submit</button-->
+         </form>
+      </div>
+
+
+
+
+      <script>
+         function adddata2(){
+          var servay_for = $("input[name='property1']:checked").val();
+
+         var db = firebase.firestore();
+                  
+                     var citiesRef = db.collection("cake");
+                      return citiesRef.add({            // for adding new data (which is added with new raw)        
+
+         
+summery:  $("input[name='property1']:checked").val()+" "+$("#p_name").val() ,
+imgurl:window.downloadURL,
+price:$("#p_price").val(),
+wt:$("#p_wt").val(),
+Tstamp:firebase.firestore.FieldValue.serverTimestamp(),
+ remark :$("#remark").val()
+                          
+                            }).then(function(docRef) {
+                         console.log("Document written with ID: ", docRef.id);
+                        // location.reload();
+
+                     })
+                     .catch(function(error) {
+                         console.error("Error adding document: ", error)
+                });
+                     
+         }
+      </script>
+      <script>
+         // Disable form submissions if there are invalid fields
+         (function() {
+           'use strict';
+           window.addEventListener('load', function() {
+             // Get the forms we want to add validation styles to
+             var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+             var validation = Array.prototype.filter.call(forms, function(form) {
+               form.addEventListener('submit', function(event) {
+                 if (form.checkValidity() === false) {
+                   event.preventDefault();
+                   event.stopPropagation();
+                 }
+                 form.classList.add('was-validated');
+               }, false);
+             });
+           }, false);
+         })();
+      </script>
+
+      <script type="text/javascript">
+        
+fn1.addEventListener('change', function (e) {
+    var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
+  
+    for (let i = 0; i < e.target.files.length; i++) {
+        let imageFile = e.target.files[i];
+        let storageRef = firebase.storage()
+            .ref("img/" + imageFile.name);
+        let task = storageRef.put(imageFile);
+        //
+         console.log( "sanjay shays-"+e.target.result);
+
+    //
+
+        task.on('state_changed', function progress(snapshot) {
+            let pct = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+            console.log("Upload is " + pct + "% Done")
+            
+            if (pct == 100) {
+                console.log("Upload is over " + "img/" + imageFile.name);
+            };
+            
+        }, function (error) {
+            // Handle unsuccessful uploads
+        }, function () {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            task.snapshot.ref.getDownloadURL()
+                .then(function (downloadURL) {
+                    console.log('File available at', downloadURL);
+                    window.downloadURL=downloadURL;
+                      adddata2();
+                });
+        });
+    }
+});
+
+      </script>
+   </body>
+</html>

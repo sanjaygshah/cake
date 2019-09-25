@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+    width: 100%;
+    height: 50%;
+  }
+  .person {
+  border: 10px solid transparent;
+  margin-bottom: 25px;
+  width: 80%;
+  height: 80%;
+  opacity: 0.7;
+}
+.person:hover {
+  border-color: #f1f1f1;
+}
+.navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+  </style>
+</head>
+<body>
+            <div class="jumbotron">
+            <div class="container text-center">
+              <h1>Just Cake</h1>      
+<p>Address </p>
+            </div>
+          </div>
+
+ <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top">
+  <!-- Brand -->
+ 
+    <!--a class="navbar-brand" href="index3.html"><img src="images/parlor.jpg" class="img-fluid" alt="Responsive image"  width="50" height="50">Shop</a-->
+ <a class="navbar-brand" href="index3.html">Shop</a>
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#us">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#tc">T & C</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Shop</a>
+      </li> 
+    </ul>
+  </div> 
+</nav>
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="images/i1.jpg" alt="Los Angeles" width="1100" height="500">
+      <div class="carousel-caption">
+        <h3>Los Angeles</h3>
+        <p>We had such a great time in LA!</p>
+      </div>   
+    </div>
+    <div class="carousel-item">
+      <img src="images/i2.jpg" alt="Chicago" width="1100" height="500">
+      <div class="carousel-caption">
+        <h3>Chicago</h3>
+        <p>Thank you, Chicago!</p>
+      </div>   
+    </div>
+    <div class="carousel-item">
+      <img src="images/i3.jpg" alt="New York" width="1100" height="500">
+      <div class="carousel-caption">
+        <h3>New York</h3>
+        <p>We love the Big Apple!</p>
+      </div>   
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+<div class="container text-center">
+  <h3>Just Cake</h3>
+  <p><em>We arrange!</em></p>
+  <p>We have created a fictional band website. ..</p>
+  <br>
+  <div class="row">
+
+
+    <div class="col-sm-4  filter photo">
+      <div class="panel panel-primary">
+        <div class="panel-heading">BLACK FRIDAY DEAL</div>
+        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    
+    <div class="col-sm-4" >
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">Aniverssary</div>
+        <div class="panel-body"><img src="images/i1.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+
+    
+   
+
+    </div>
+    <div class="col-sm-4">
+      <p class="text-center"><strong>Birthday</strong></p><br>
+     <a href="index3.html"> <img src="images/i2.jpg" class="img-circle person" alt="Random Name" width="255" height="255"></a>
+    </div>
+    <div class="col-sm-4">
+      <p class="text-center"><strong>Ring</strong></p><br>
+     <a href="index3.html"> <img src="images/i3.jpg" class="img-circle person" alt="Random Name" width="255" height="255"></a>
+    </div>
+  </div>
+</div>
+
+
+<br>
+<div class="container-fluid bg-3 text-justify">
+  <h4 id="tc">Terms & Condition</h4>
+ Please read the following terms and conditions very carefully as your use of service is subject to your acceptance of and compliance with the following terms and conditions ("Terms"). By subscribing to or using any of our services you agree that you have read, understood and are bound by the Terms, regardless of how you subscribe to or use the services. If you do not want to be bound by the Terms, you must not subscribe to or use our services. Your use of the Website, services and tools are governed by the following terms and conditions ("Terms of Use") as applicable to the Website, including the applicable policies which are incorporated herein by way of reference. If You transact on the Website, You shall be subject to the policies that are applicable to the Website for such transaction. By mere use of the Website, You shall be contracting with Shopnideas and these terms and conditions including the policies constitute Your binding obligations, with Shopnideas By impliedly or expressly accepting these Terms of Use, You also accept and agree to be bound by the Shopnideas Privacy Policy. For the purpose of these Terms of Use, wherever the context so requires "You" or "User" shall mean any natural or legal person who has agreed to become a member of the Website by providing Registration Data while registering on the Website as Registered User using the computer systems. The terms "we", "us", "our" shall mean Shopnideas When You use any of the services provided by us through the Website, including but not limited to, (e.g. Customer Reviews), You will be subjected to the rules, guidelines, policies, terms, and conditions applicable to such service, and they shall be deemed to be incorporated into this Terms of Use and shall be considered as part and parcel of this Terms of Use. We reserve the right, at our sole discretion, to change, modify, add or remove portions of these Terms of Use, at any time without any prior written notice to you. It is your responsibility to review these Terms of Use periodically for updates / changes. Your continued use of the Website following the posting of changes will mean that you accept and agree to the revisions. As long as You comply with these Terms of Use, We grant You a personal, non-exclusive, non-transferable, limited privilege to enter and use the Website. <br><b>Important Points</b><br>
+The products and services displayed on Shopnideas are our best offerings and we put in our 100% effort to deliver high quality similar products and services. These terms and conditions are put across to avoid any possible conflict.<br>
+
+All products listed on the website, their descriptions, and their prices are subject to change, time to time according to the various conditions prevailing in the market.Orders are accepted and delivered in TIME SLOTS which are available in your selected city. All requests are processed with reference to time slot of your order.For midnight orders, delivery could be made anytime between 11:30 PM to 11:59 AM. In case of remote locations/small towns it can be made from 10PM to 11:59 AM.The acceptance of order is subject to availability of products, delivery areas and time.Refund PolicyRefund in cases of Cancellations are mentioned in Cancellation policy, kindly refer the same.Only one attempt for delivery will be made. Please confirm availability of recipient before choosing delivery time. If recipient is not available at the time of delivery, second attempt will not be made and order will be cancelled. No refund will be made in such case.The refunds are only initiated once the customer confirms over mail that where the refund has to be done.<br><b>Cancellation Policy</b><br>
+Please read the below stated points for any cancellations.<br>
+
+Please understand that the points mentioned in the policies are with reference to the time slots on the www.shopnideas.com website selected by the user in checkout process. Orders are processed in time slots and we accept cancellation requests with reference to time slot selected by customer in order placed. Consider conditions stated below -<br>
+
+If the cancellation request comes to Shopnideas before 24 hours to the start of time slot selected - 10% of order value is charged as cancellation charges. 90% refund to Bank Account.If the cancellation request comes to Shopnideas between 12 - 24 hours before the start of time slot selected then - 20% of order value will be deducted as cancellation charges. 80% refund to Bank Account.If the cancellation request comes to Shopnideas before 24 hours to the start of time slot selected - 10% of order value is charged as cancellation charges. 90% refund to Bank Account.No cancellation requests are accepted on order placed in following categories.Same day delivery category .Same day mid-night delivery orders can not be cancelled. .Special day orders can not be cancelled and no refund is initiated for them.
+</div>
+<div id="us" class="container-fluid bg-3 text-center">
+ <b> About US</b>
+ Detail about ourself
+  </div>
+
+<div class="container-fluid bg-3 text-center">
+  <h4>Location</h4>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  <br>
+  Address
+  <br>
+  City
+</div>
+</body>
+</html>

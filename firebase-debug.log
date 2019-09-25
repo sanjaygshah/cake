@@ -1,0 +1,22 @@
+[debug] [2019-09-20T20:38:31.768Z] ----------------------------------------------------------------------
+[debug] [2019-09-20T20:38:31.777Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Sanjay\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only hosting
+[debug] [2019-09-20T20:38:31.778Z] CLI Version:   7.3.1
+[debug] [2019-09-20T20:38:31.778Z] Platform:      win32
+[debug] [2019-09-20T20:38:31.778Z] Node Version:  v10.15.2
+[debug] [2019-09-20T20:38:31.780Z] Time:          Sat Sep 21 2019 02:08:31 GMT+0530 (India Standard Time)
+[debug] [2019-09-20T20:38:31.781Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-20T20:38:31.804Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-20T20:38:31.805Z] > authorizing via signed-in user
+[debug] [2019-09-20T20:38:31.805Z] [iam] checking project just-cake for permissions ["firebase.projects.get"]
+[debug] [2019-09-20T20:38:31.811Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/just-cake:testIamPermissions  
+
+[debug] [2019-09-20T20:38:34.196Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-20T20:38:34.201Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/just-cake  
+ 
+[debug] [2019-09-20T20:38:35.084Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-20T20:38:35.087Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/just-cake/webApps/-/config  
+ 
+[debug] [2019-09-20T20:38:36.106Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
