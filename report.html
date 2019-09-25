@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>  
+ <html lang="en">  
+ <head>  
+  <title>Smartest City</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <!-- Below is the initialization snippet for my Firebase project. It will vary for each project --> 
+	 <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+ <script>  
+  // Initialize Firebase  
+  var config = {  
+  apiKey: "AIzaSyDNRtpa86v986mO3pePPursUW1XtahmrDo",
+    authDomain: "gfem-b7b57.firebaseapp.com",
+    databaseURL: "https://gfem-b7b57.firebaseio.com",
+    projectId: "gfem-b7b57",
+    storageBucket: "gfem-b7b57.appspot.com",
+    messagingSenderId: "144283479484"
+  };  
+  firebase.initializeApp(config); 
+ </script>  
+ <body>  
+ <!-- A simple example script to add text to the page that displays the user's Display Name and Email -->  
+ <script>  
+ // Track the UID of the current user.  
+ var currentUid = null;  
+ firebase.auth().onAuthStateChanged(function(user) {  
+  // onAuthStateChanged listener triggers every time the user ID token changes.  
+  // This could happen when a new user signs in or signs out.  
+  // It could also happen when the current user ID token expires and is refreshed.  
+  if (user && user.uid != currentUid) {  
+   // Update the UI when a new user signs in.  
+   // Otherwise ignore if this is a token refresh.  
+   // Update the current user UID.  
+   currentUid = user.uid;  
+  // document.body.innerHTML = '<h5> Congrats ' + user.displayName + ', you are done! </h5> <h6> Now get back to what you love building. </h6> <h6> Need to verify your email address or reset your password? Firebase can handle all of that for you using the email you provided: ' + user.email + '. </h6>';  
+	 datas()
+  } else { 
+datas()  
+   // Sign out operation. Reset the current user UID. 
+   currentUid = null;  
+   console.log("no user signed in");  
+  } 
+ }); 
+  function datas(){
+var db=firebase.firestore();
+   db.collection("mokani").where("edite", "==", "no")  // day from formula
+    .onSnapshot(function(snapshot) {
+        snapshot.docChanges().forEach(function(change) {
+           if (change.type === "added") {
+			const a=change.doc.data();
+			//console.log(doc.id, " => ", doc.data());
+			var index = $("table tbody tr:last-child").index();
+			//alert("ohh!!!! its working!!"+change.doc.id );
+			var row = '<tr id="'+change.doc.id+'">' +
+            '<td id="a">'+a.bank_name +'</td>' +
+            '<td id="b">'+a.bank_name +'</td>' +
+            '<td id="c">'+a.bank_name +'</td>' +
+			
+			'<td id="f'+change.doc.id+ '" >-</td>' +
+        '</tr>';
+    	$("#myT tbody").append(row);
+		/*$("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf("wed") > -1)
+    });*/
+                console.log("New city: ", change.doc.data());
+            }
+            if (change.type === "modified") {
+                console.log("Modified city: ", change.doc.data());
+            }
+            if (change.type === "removed") {
+                console.log("Removed city: ", change.doc.data());
+            }
+        });
+    }
+	);
+  };
+ </script>  
+ </head>  
+<body>
+ <h5>.......</h5>
+<div id="cont_a"class="container">
+  <h2>Mokani Associates </h2>
+  <p>Pending Reports</p>  
+  <input class="form-control" id="myInput" value="wed" type="text" placeholder="Type doctors name, speciality to search....." >
+  <br>
+  <table id="myT"class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th width="37%">Date.</th>
+        <th width="30%">Bank name</th>
+        <th width="10%">Employe Name</th>
+		<th width="3%">?</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">  </tbody>
+  </table>
+   <!--button onclick="savedata()" align="right" style="width:auto;">update Data</button>
+      <button onclick="savedata2()" align="right" style="width:auto;">set data</button-->
+  
+</div>
+<div id="cont_b"class="container">
+  <button onclick="back()" align="right" style="width:auto;">Update</button>
+<div class="row">
+  <div id="col1" class="col-xs-6">
+			<table id="myT1"class="table table-bordered table-striped">
+				<thead>
+				  <tr>
+					<th>Column 1</th>
+				  </tr>
+				</thead>
+				<tbody id="myTable1">  </tbody>
+			  </table>
+  </div>
+  <div id="col2" class="col-xs-6">
+		 <table id="myT2" class="table table-bordered table-striped">
+			<thead>
+			  <tr>
+				<th>Date.</th>
+			  </tr>
+			</thead>
+			<tbody id="myTable2">  </tbody>
+		  </table>
+  </div>
+
+</div>
+<div>
+
+<script>
+$(document).ready(function(){
+
+               $("#cont_b").hide();
+});
+</script>
+<script>
+$(document).on("click","#myT td",function(event) {
+
+var currentRow=$(this).closest("tr");
+		 window.sid=$(currentRow).attr("id")
+	
+		 // id got now load all field for this edit it and than update it
+		 		 $("#cont_a").hide();
+			    $("#cont_b").show()
+		 makereport()
+		
+		 /*
+		 if ($(this).text() === "-") {
+		 
+;
+		// 
+                  $(this).html('Y');
+            }else if ($(this).text() === "Y"){
+					       $(this).html('N');
+            }else  { $(this).html('-');}
+			*/
+     });
+//
+function makereport(){
+var db=firebase.firestore();
+	var docRef = db.collection("mokani").doc(sid);
+
+docRef.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+		const a=doc.data();
+						//adding  text input
+					var row= "";
+					row+= '<label>Address</label><textarea class="form-control" rows="5" id="address" >'+a.address+'</textarea>  '; //Create one textbox as HTML
+					$("#myT1 tbody").append(row);
+					// adding text area
+					var row= "";
+					row+= '<label>Bank</label><input type="text" name="Fname" id="bank_name" value="'+a.bank_name+'">'; //Create one textbox as HTML
+					$("#myT2 tbody").append(row);
+					//
+					var row= "";
+					row+= '<br><label>Use as</label><input type="text" name="Fname" id="usa_as" value="'+a.usa_as+'">'; //Create one textbox as HTML
+					$("#myT2 tbody").append(row);
+					
+					// use following lines fith greed 4 in jcart with each fnction
+					var row= "";
+					row+='<div class="col-md-3 text-center"> <img src="images/img_1.png" width="150px" height="150px"><br>product 1 - <strong>$10</strong> <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal">Details</button><br> <button class="btn btn-danger my-cart-btn" data-id="1" data-name="product 1" data-summary="summary 1" data-price="10" data-quantity="1" data-image="images/img_1.png">Add to Cart</button></div>'
+					// if i=1 then grid 1 i=2 then  grid 2 ... reste after 4 
+					$("#myT2 tbody").append(row);
+					//
+					
+					
+		 document.getElementById(sid).remove();
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+})
+ //$("#cont_a").show();
+}
+
+function savedata(){
+var db = firebase.firestore();
+                $('#myT tbody>tr').each(function () {
+						var sid=$(this).attr("id")
+						var currentRow=$(this).closest("tr"); 
+					    var col6=currentRow.find("td:eq(5)").text(); // get current row 3rd TD
+						
+						 alert(col6);
+						/*
+						if (col6!=="-"){
+						 var citiesRef = db.collection("doctor1").doc(sid);
+										return citiesRef.update({
+									Status:col6,
+									Tstamp:firebase.firestore.FieldValue.serverTimestamp()
+										})
+									}*/
+                }); 
+}
+function savedata2(){
+var db = firebase.firestore();
+                $('#myT tbody>tr').each(function () {
+						var sid=$(this).attr("id")
+						var currentRow=$(this).closest("tr"); 
+						 var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+						 var col2=currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+						 var col3=currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+						  var col4=currentRow.find("td:eq(3)").text(); // get current row 3rd TD
+						  var col5=currentRow.find("td:eq(4)").text(); // get current row 3rd TD
+						    var col6=currentRow.find("td:eq(5)").text(); // get current row 3rd TD
+						 var data=col1+"\n"+col2+"\n"+col3;
+						 //alert(col6);
+						 
+						 var citiesRef = db.collection("doctor1");
+										return citiesRef.add({
+									name:col1,
+									speciality:col2,
+									day:col3,
+									time:col4,
+									room:col5,
+									Status:"x",
+									Tstamp:firebase.firestore.FieldValue.serverTimestamp()
+										})
+									
+                }); 
+}
+function back(){
+  $("#cont_b").hide();
+    $("#cont_a").show();
+}
+
+</script>
+ </body> 
+ </html>
