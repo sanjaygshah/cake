@@ -34,7 +34,15 @@ db.collection("cake").get().then((querySnapshot) => {
             /*  newNode.innerHTML ='<div class="card"><br><img src="'+a.imgurl+'" class="mx-auto d-block"  width="90%" height="150px" ><br>'+ a.pid+'  <strong>Rs.'+a.price+'</strong> <br> <button class="btn btn-danger my-cart-btn" data-id="'+a.pid+'" data-name="'+a.summery+'" data-summary="'+a.summery+'" data-price="'+a.price+'" data-quantity="1" data-image="'+a.imgurl+'">Add to Cart</button></div>';
             */
 pid=doc.id
-            newNode.innerHTML ='<div class="panel panel-primary"><div class="panel-heading">'+a.summery+'</div><div class="panel-body"><img src="'+a.imgurl+'"  style="width:100%"  height="125px" alt="Image"><br>Rs.-'+a.price+'</div><div class="panel-footer"><button class="btn btn-success btn-sm my-cart-btn" data-id="'+pid+'" data-name="'+a.summery+'" data-summary="'+a.remark+'" data-price="'+a.price+'" data-quantity="1" data-image="'+a.imgurl+'">Add to Cart</button> <button type="button" class="btn btn-info btn-xs" data-toggle="modal"  data-whatever="@'+a.summery+'" data-target="#exampleModal"> myDetails</button> </div></div></div>';
+            newNode.innerHTML ='<div class="panel panel-primary"><div class="panel-heading">'+a.summery+'</div><div class="panel-body"><img src="'+a.imgurl+'"  style="width:100%"  height="125px" alt="Image"><br><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-price1="'+a.price+'" data-remark="'+a.remark+'"  data-whatever="'+a.summery+'" data-target="#exampleModal">Details</button>Rs.-'+a.price+'</div><div class="panel-footer">'+
+            ' <button type="button" class="btn btn-info btn-xs" data-toggle="modal" '+
+' data-id="'+a.id+'" '+
+' data-name="'+ a.pname+'"'+
+ ' data-price1="'+a.price+'"'+
+ ' data-description="'+a.remark+'"'+  
+ ' data-whatever="'+a.summery+'"'+
+ '  data-target="#myModal2">Add to Cart</button>'+
+ ' </div></div></div>';
             document.getElementById('dd').appendChild(newNode); 
           
     }
@@ -48,6 +56,11 @@ var storage = firebase.storage();
 
 // Create a storage reference from our storage service
 var storageRef = storage.ref();
+function clickfnk(){
+  //alert("select flever, weight and shap");
+  
+  $("#myModal2").modal('show');
+}
 
  function datas(){
            
