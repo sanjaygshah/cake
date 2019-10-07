@@ -28,10 +28,8 @@
          z-index: 999;
          }
          .container.custom-container {
-      padding: 0 50px;
-    }
-   
-
+         padding: 0 50px;
+         }
       </style>
    </head>
    <body class="container">
@@ -108,7 +106,6 @@
       <!--button type="addNewProduct" name="addNewProduct" id="addNewProduct">Add New Product</button-->
       <br>
       <div class="mx-auto">
-      
          <div class="col-md-4 text-center filter cake">
             <img src="images/raw1.jpg" width="100%" height="150px">
          </div>
@@ -127,19 +124,17 @@
             <a href="#" class="btn btn-info">Details</a>
             </div>
             -->
-     
-  
-      <!--div>
-         <button class="btn btn-primary filter-button" style="width: 20%;" data-filter="all">All</button>
-         <button class="btn btn-default filter-button" style="width: 20%;" data-filter="Cake">Cake</button>
-         <button class="btn btn-default filter-button" style="width: 20%;" data-filter="graphic">Accessory</button>
-         <button class="btn btn-default filter-button" style="width: 20%;" data-filter="sanjay">Accessory Pack</button>
-         </div-->
-      <h2>Products</h2>
-      <div id="dd" class="row"> </div>
+         <!--div>
+            <button class="btn btn-primary filter-button" style="width: 20%;" data-filter="all">All</button>
+            <button class="btn btn-default filter-button" style="width: 20%;" data-filter="Cake">Cake</button>
+            <button class="btn btn-default filter-button" style="width: 20%;" data-filter="graphic">Accessory</button>
+            <button class="btn btn-default filter-button" style="width: 20%;" data-filter="sanjay">Accessory Pack</button>
+            </div-->
+         <h2>Products</h2>
+         <div id="dd" class="row"> </div>
       </div>
       <
-      <!-- Modal 1 -->
+      <!-- Modal 1 product details -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
          <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -149,88 +144,97 @@
                </div>
                <div class="modal-body">
                   <p></p>
-                <h5></h5>
+                  <h5></h5>
                </div>
                <div class="modal-footer">
-                available in 500gm, 1 Kg, 1.5 Kg and 2 Kg.
+                  available in 500gm, 1 Kg, 1.5 Kg and 2 Kg.
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   <!--button type="button" class="btn btn-primary">Goto cart</button-->
                </div>
             </div>
          </div>
       </div>
-      <!-- Modal 2-->
-         <div class="modal fade" id="myModal" role="dialog">
-           <div class="modal-dialog">
-           
-             
-             <div class="modal-content">
+      <!-- Modal 2 collecting personal details -->
+      <div class="modal fade" id="myModal" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
                <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 <h4 class="modal-title">Personal Details</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Personal Details</h4>
                </div>
                <div class="modal-body">
-                 
-                 <div class="form-group">
-                <p>Message on cake <textarea class="form-control"  pattern="{100}" rows="3" id="msg"></textarea></p>
-                <p>Mobile: <input type="number" id="phone" name="phone" pattern="[0-9]{10}" required><br><br>Delivery on<input type="date" name="dday"></p>
-                <label for="comment">Address:</label>
-         <textarea class="form-control" rows="5" id="Address"></textarea>
-         </div>
-               </div>
-               <div class="modal-footer"> <button type="button" onclick="close1()" >Pay</button>
-               <p> Pay Rs.100 by clicking as booking amount. Remaining will be collected during delivery</p>
-                
-               </div>
-             </div>
-             
-           </div>
-         </div>
-          <!--   Modal2 -->
-           <!-- Modal 3-->
-         <div class="modal fade" id="myModal2" role="dialog">
-           <div class="modal-dialog">
-           
-             
-             <div class="modal-content">
-               <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 <h4 class="modal-title">Please Select</h4>
-               </div>
-               <div class="modal-body">
-                 <p id='description'>p</p>
-                 <h4 id="price">1000</h4>
-                 <select id="mySelect" onchange="sel_wt()">
-  <option value=1>500 Gm</option>
-  <option value=2>1 KG</option>
-  <option value=3>1.5 Kg</option>
-  <option value=4>2 Kg</option>
-</select>
- <select id="mySelect2" onchange="sel_shape()">
-  <option value='a'>Heart</option>
-  <option value='b'>Round</option>
-  <option value='c'>square</option>
-  
-</select>
                   <div class="form-group">
-
-                   </div>
+                     <p>Message on cake <textarea class="form-control"  pattern="{100}" rows="3" id="msg"></textarea></p>
+                     <p>Mobile (Ten Digit) <textarea class="form-control"  pattern="{100}" rows="1" id="phone" pattern="[0-9]{10}" required ></textarea></p>
+                     <!--p>Mobile(ten digit): <input type="number" id="phone" name="phone" pattern="[0-9]{10}" required><br><br>Delivery on<input type="date" name="dday"></p-->
+                     <label for="comment">Address:</label>
+                     <textarea class="form-control" rows="5" id="Address"></textarea>
+                  </div>
                </div>
                <div class="modal-footer">
-                <button class="btn btn-success btn-xs my-cart-btn" id="1" data-id="1" data-name="500gm 123456 464 54646 446 46464 64 " data-summary="smmery" data-price="100" data-quantity="1" data-image="">Add to Cart</button>
-                 <button type="button" onclick="changeattr()" >Close</button>
+                  <button type="button" onclick="close1()" >Pay</button>
+                  <p> Pay Rs.100 by clicking as booking amount. Remaining will be collected during delivery</p>
                </div>
-             </div>
-             
-           </div>
+            </div>
          </div>
-          <!--   Modal3 over -->
-
+      </div>
+      <!--   Modal2 -->
+      <!-- Modal 3 for select weight and flavour-->
+      <div class="modal fade" id="myModal2" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Please Select</h4>
+               </div>
+               <div class="modal-body">
+                  <p id='description'>details</p>
+                
+                  <div id="wt_opt">sss</div>
+                  <h4 id="price">1000</h4>
+                  <select id="mySelect1" >
+                  </select>
+                  
+                  <select id="mySelect2">     // onchange="sel_shape()">
+                    
+                  </select>
+                  <div class="form-group">
+                  </div>
+               </div>
+               <div id="footer" class="modal-footer">
+                  <button class="btn btn-success btn-xs my-cart-btn"  data-id=a.id data-name="500gm 123456 464 54646 446 46464 64 " data-summary="smmery" data-price="100" data-quantity="1" data-image="">Add to Cart and Keep shopping</button>
+                  <!--button type="button" onclick="changeattr()" >Close</button-->
+                
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--   Modal3 over -->
       <script type="text/javascript">
          var value="cake";
          var fin_ord="empty"
          $(document).ready(function(){
-         
+   $("#mySelect1").change(function() {
+          
+                 var x = document.getElementById("mySelect1").value;
+                window.price_f=window.price1*x
+                document.getElementById("price").innerHTML ='Rs.-'+window.price_f;
+         });
+
+      $("#mySelect2").change(function() {
+          
+                 var xx = document.getElementById("mySelect2").value;
+                window.flavour=xx
+              
+                      });
+
+
+
+
+
+
+
+
          $("#m1").click(function() {
            window.value="cake";
          filt();
@@ -247,13 +251,10 @@
          window.value="pack";
          filt();
          }); 
-         
-           
-         
          $(".filter-button").click(function(){
              var value = $(this).attr('data-filter');
          //var value=window.value
-            // alert("cdssfdsfdsfsdfsd"+value);
+           
              if(value == "all")
              {
                  //$('.filter').removeClass('hidden');
@@ -265,48 +266,39 @@
          //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
                  $(".filter").not('.'+value).hide('3000');
                  $('.filter').filter('.'+value).show('3000');
-                 
              }
              if($('.navbar-toggle').css('display') !='none'){
                  $('.navbar-toggle').trigger( "click" );
              }
          });
-         
-         
          function filt(){
-           //alert(window.value);
+         
          var value=window.value
          if($('.navbar-toggle').css('display') !='none'){
                  $('.navbar-toggle').trigger( "click" );
              }
-         
            // navbar hide?
             if(value == "all")
              {
-              // alert(window.value);
+        
                  //$('.filter').removeClass('hidden');
                  $('.filter').show('1000');
              }
              else
              {
-              // alert(window.value+" else");
+         
                 $('.filter[filter-item="'+value+'"]').removeClass('hidden');
                $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
                  $(".filter").not('.'+value).hide('3000');
                  $('.filter').filter('.'+value).show('3000');
-                 
              }
-         
          }
-         
          });
-         
       </script>
       <script type='text/javascript' src="js/jquery.mycart.js"></script>
       <script type="text/javascript">
          $(function () {
             var value="cake";
-         
            var goToCartIcon = function($addTocartBtn){
              var $cartIcon = $(".my-cart-icon");
              var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({"position": "fixed", "z-index": "999"});
@@ -319,7 +311,6 @@
                $image.remove();
              });
            }
-         
            $('.my-cart-btn').myCart({
              currencySymbol: '$',
              classCartIcon: 'my-cart-icon',
@@ -346,12 +337,13 @@
                checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
                $.each(products, function(){
                 // checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
-               checkoutString += ("\n \n[" + this.id + "-" + this.name + "-" + this.summary + "-" + this.price + "-" + this.quantity + "]" );
+              // checkoutString += ("\n \n[" + this.id + "-" + this.name + "-" + this.summary + "-" + this.price + "-" + this.quantity + "]" );
+                checkoutString += ("\n \n[" + this.id +  "]" );
+
                });
                //https://wa.me/+919974021397/?text="hi"
-              
                   $("#myModal").modal('show');
-                   //alert(checkoutString);
+                 
                    window.fin_ord=checkoutString
               // window.open('https://wa.me/+919974021397/?text="'+checkoutString +'"', "_top");
                console.log("checking out", products, totalPrice, totalQuantity);
@@ -361,7 +353,6 @@
                return totalPrice * 0.0;
              }
            });
-         
            $("#addNewProduct").click(function(event) {
              var currentElementNo = $(".row").children().length + 1;
              $(".row").append('<div class="col-md-3 text-center"><img src="images/img_empty.png" width="150px" height="150px"><br>product ' + currentElementNo + ' - <strong>$' + currentElementNo + '</strong><br><button class="btn btn-danger my-cart-btn" data-id="' + currentElementNo + '" data-name="product ' + currentElementNo + '" data-summary="summary ' + currentElementNo + '" data-price="' + currentElementNo + '" data-quantity="1" data-image="images/img_empty.png">Add to Cart</button><a href="#" class="btn btn-info">Details</a></div>')
@@ -371,25 +362,16 @@
            n=$("#phone").val().length;
            if (n==10){
             $("#myModal").modal('hide');
-         
            window.fin_ord ="Mobie No"+$("#phone").val()+"Detail-" +window.fin_ord;
            order1();
- 
          }else {
            alert("Please add proper mobile no");
          }
-         //alert( window.fin_ord);
-        
-         
+       
          }
-         
-         
-         
          function order1(){
-         
-         
+         window.open("https://p-y.tm/PWB-cdq");
           var db = firebase.firestore();
-                         
                             var citiesRef = db.collection("order");
                              return citiesRef.add({           // for adding new data (which is added with new raw)        
                                                      detail:  window.fin_ord ,
@@ -397,20 +379,16 @@
                                            }).then(function(docRef) {
                                 console.log("Document written with ID: ", docRef.id);
                                // location.reload();
-         
                             })
                             .catch(function(error) {
                                 console.error("Error adding document: ", error)
                        });
-                             window.open("https://p-y.tm/PWB-cdq");
-         
+                            
          }
-
          function changeattr(){
          // alert('change data attr');
-//document.getElementsByTagName("H1")[1].setAttribute("data-n", "jay");
+         //document.getElementsByTagName("H1")[1].setAttribute("data-n", "jay");
          }
-         
       </script>
       <script type="text/javascript">
          $('#exampleModal').on('show.bs.modal', function (event) {
@@ -426,35 +404,77 @@
          modal.find('.modal-body h5').text('Rs.-'+recipient3)
          })
 
- $('#myModal2').on('show.bs.modal', function (event) {
+         $('#myModal2').on('show.bs.modal', function (event) {
+         $("#mySelect1").empty();
+           $("#mySelect2").empty();
+          
          var button = $(event.relatedTarget) // Button that triggered the modal
+          window.flavour=1;
+           window.price_f=button.data('price1');
+           
+          // adding radio options for weight
+                     var str=button.data('wt');
+                     var wt_array = str.split(",");        
+                     var i=1
+                             $.each(wt_array,function(i,ii){
+                                        $("#mySelect1").append(
+                                           $('<option />', {
+                                              'text':  ii,
+                                              value: i+1,
+                                              id:'wt' +(i+1)                       
+                                           })
+                                     ); 
+                             });
+
+          // adding radio options for lavour
+                    var str=button.data('fl')
+                    var fl_array=str.split(",")
+                    i=1
+                    $.each(fl_array,function(ind,flav){
+                        $("#mySelect2").append(
+                          $("<option/>",{
+                            'text':flav,
+                            value:flav
+                          })
+                          );
+                    });
+                    
+                    // appending child button in footer
+                      $("#footer").empty();
+                    $("#footer").append($("<Button>",{
+                      'text':"Add to cart",
+                      'data-id':button.data('id'),
+                      'class':"btn btn-success btn-xs my-cart-btn",
+                      'data-name':button.data('name'),
+                      'data-price1':button.data('price1'),
+                      'data-quantity':"1",
+                      'data-image':"",
+                      'data-pdetails':button.data('pdetails')
+
+
+                        })
+                      )
          var pname = button.data('name') 
-       window.prd=pname
-         var description = button.data('description')
-         var price1 = button.data('price1')
-         window.price1=price1
+         window.prd=pname
+         var description = button.data('pdetails')
+         var pprice1 = button.data('price1')
+         window.price1=pprice1
+         window.price_f=window.price1
+         window.shape='a'
          var modal = $(this)
          modal.find('.modal-title').text( pname)
          modal.find('.modal-body p').text(description)
           modal.find('.modal-body h4').text('Rs.-'+price1)
+        
                    })
- function sel_wt(){
-  
-   var x = document.getElementById("mySelect").value;
-
-   window.price_f=window.price1*x
-  document.getElementById("price").innerHTML ='Rs.-'+window.price_f;
- }
- function sel_shape(){
-  
-   var x = document.getElementById("mySelect2").value;
-   window.shape=x
- // alert(x);
- }
-
-
-
-
+         
+         function sel_shape(){
+         var x = document.getElementById("mySelect2").value;
+         window.shape=x
+         //todo-add to cart on popup -attribut set 
+         // alert(x);
+         }
+       
       </script>
    </body>
 </html>

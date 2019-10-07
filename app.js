@@ -28,6 +28,7 @@ db.collection("cake").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data()}`);
              const a=doc.data();
+             
              //var countup = this;
             var newNode = document.createElement('div' );
            newNode.className = 'col-md-3 text-center filter '+ a.summery;
@@ -39,9 +40,11 @@ pid=doc.id
 ' data-id="'+a.id+'" '+
 ' data-name="'+ a.pname+'"'+
  ' data-price1="'+a.price+'"'+
- ' data-description="'+a.remark+'"'+  
+ ' data-pdetails="'+a.details+'"'+  
  ' data-whatever="'+a.summery+'"'+
- '  data-target="#myModal2">Add to Cart</button>'+
+ 'data-wt="'+a.wt+'"'+
+  'data-fl="'+a.Flavour+'"'+
+ '  data-target="#myModal2">Add to Cart2</button>'+
  ' </div></div></div>';
             document.getElementById('dd').appendChild(newNode); 
           
