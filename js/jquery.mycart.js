@@ -86,7 +86,7 @@
       localStorage.products = JSON.stringify(products);
     };
     var addProduct = function (id, name, summary, price, quantity, image) {
-      alert("click o cart");
+      //alert("click o cart");
       var products = getAllProducts();
       products.push({
         id: id,
@@ -96,7 +96,7 @@
         quantity: quantity,
         image: image
       });
-      setAllProducts(products);
+     setAllProducts(products);
     };
 
     /*
@@ -238,14 +238,14 @@
     var drawTable = function () {
       var $cartTable = $("#" + idCartTable);
       $cartTable.empty();
-
+      $cartTable.append('<th>Items</th><th>Rate</th><th>Qty</th><th>Total</th><th></th>');
       var products = ProductManager.getAllProducts();
       $.each(products, function () {
         var total = this.quantity * this.price;
         $cartTable.append(
           '<tr title="' + this.summary + '" data-id="' + this.id + '" data-price="' + this.price + '">' +
-          '<td class="text-left" "><img width="30px" height="30px" src="' + this.image + '"/></td>' +
-          '<td >' + this.name + '</td>' +
+          '<td  " class="text-left" "><img width="3px" height="3px" src="' + this.image + '"/><br><small>' +
+           this.name + '</small></td>' +
           '<td title="Unit Price">' + MathHelper.getRoundedNumber(this.price) + '</td>' +
           '<td title="Quantity"><input type="number" min="1" style="width: 30px;" class="' + classProductQuantity + '" value="' + this.quantity + '"/> </td>' +
           '<td title="Total" class="text-right ' + classProductTotal + '">' +  MathHelper.getRoundedNumber(total) + '</td>' +
@@ -367,11 +367,15 @@
 
       var id = $target.data('id');
       var name = $target.data('name');
+      name=window.prd+'-'+window.price_f+'-'+window.flavour
+      id=id+name
       var summary = $target.data('summary');
-      var price = $target.data('price');
+      var price=window.price_f
+     // var price = $target.data('price');
       var quantity = $target.data('quantity');
       var image = $target.data('image');
-     // alert("ask flavour");
+    //alert("ask flavour");
+      $("#myModal2").modal('hide');
       ProductManager.setProduct(id, name, summary, price, quantity, image);
       $cartBadge.text(ProductManager.getTotalQuantity());
 
